@@ -4,6 +4,9 @@ import sys
 import streamlit as st
 from streamlit_webrtc import VideoHTMLAttributes, webrtc_streamer
 from aiortc.contrib.media import MediaRecorder
+# import json
+# import mediapipe as mp
+# mp_pose = mp.solutions.pose
 
 
 BASE_DIR = os.path.abspath(os.path.join(__file__, '../../'))
@@ -44,6 +47,42 @@ def video_frame_callback(frame: av.VideoFrame):
     frame = frame.to_ndarray(format="rgb24")  # Decode and get RGB frame
     frame, _ = live_process_frame.process(frame, pose)  # Process frame
     return av.VideoFrame.from_ndarray(frame, format="rgb24")  # Encode and return BGR frame
+
+# # new
+# def video_frame_callback(frame: av.VideoFrame):
+#     frame = frame.to_ndarray(format="rgb24")  # Decode and get RGB frame
+#     frame, results = live_process_frame.process(frame, pose)  # Process frame
+
+#     # Save landmarks to a JSON file.
+#     if results.pose_landmarks:
+#         landmarks = []
+#         for landmark in results.pose_landmarks.landmark:
+#             landmarks.append({
+#                 'name': mp_pose.PoseLandmark(landmark.type).name,
+#                 'x': landmark.x,
+#                 'y': landmark.y,
+#                 'z': landmark.z,
+#                 'visibility': landmark.visibility,
+#             })
+
+#         with open('landmarks.json', 'w') as f:
+#             json.dump(landmarks, f)
+
+#     return av.VideoFrame.from_ndarray(frame, format="rgb24")  # Encode and return BGR frame
+# # new end 
+# def video_frame_callback(frame: av.VideoFrame):
+#     frame = frame.to_ndarray(format="rgb24")  # Decode and get RGB frame
+#     frame, results = live_process_frame.process(frame, pose)  # Process frame
+
+#     # Print landmarks to the terminal.
+#     if results.pose_landmarks:
+#       for landmark in results.pose_landmarks.landmark:
+#         print(
+#             f'{mp_pose.PoseLandmark(landmark.type).name}: '
+#             f'x={landmark.x}, y={landmark.y}, z={landmark.z}, visibility={landmark.visibility}'
+#         )
+
+#     return av.VideoFrame.from_ndarray(frame, format="rgb24")  # Encode and return BGR frame
 
 
 def out_recorder_factory() -> MediaRecorder:
