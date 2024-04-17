@@ -10,7 +10,7 @@ pinned: false
 
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Check out the configuration reference at https://github.com/Rishabh2333g/Gym-exercise-Posture-Detection-and-Correction
 
 to run the application:
 
